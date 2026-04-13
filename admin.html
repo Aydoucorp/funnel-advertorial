@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin : Funnel Advertorial : SAY</title>
+<style>
+:root{--pink:#D63D7A;--pink-dark:#B82A63;--ink:#1A1A2E;--ink2:#3B3B52;--muted:#6B6B80;--cream:#FBF7F4;--line:#EFE2E7;--rose50:#FFF5F8;--green:#1F8A5B;--red:#E74C3C}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f4f4f8;color:var(--ink);line-height:1.5}
+
+/* LOGIN */
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh}
+.login-box{background:#fff;padding:48px 40px;border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,.08);text-align:center;max-width:400px;width:100%}
+.login-box h1{font-size:1.6rem;margin-bottom:8px;color:var(--ink)}
+.login-box p{color:var(--muted);font-size:.9rem;margin-bottom:24px}
+.login-box input{width:100%;padding:14px 18px;border:2px solid var(--line);border-radius:12px;font-size:1rem;outline:none;margin-bottom:16px}
+.login-box input:focus{border-color:var(--pink)}
+.login-box button{width:100%;padding:14px;background:var(--pink);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer}
+.login-box button:hover{background:var(--pink-dark)}
+.login-error{color:var(--red);font-size:.85rem;margin-top:8px;display:none}
+
+/* ADMIN */
+.admin{display:none;max-width:960px;margin:0 auto;padding:24px}
+.admin h1{font-size:1.8rem;margin-bottom:6px}
+.admin .sub{color:var(--muted);font-size:.9rem;margin-bottom:28px}
+.admin h2{font-size:1.25rem;margin:32px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+.admin h3{font-size:1rem;margin:18px 0 10px;color:var(--pink)}
+
+/* DASHBOARD */
+.dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px}
+.dash-card{background:#fff;border-radius:16px;padding:22px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.dash-card .label{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+.dash-card .val{font-size:2rem;font-weight:700;color:var(--ink)}
+.dash-card .val small{font-size:.9rem;color:var(--muted);font-weight:400}
+
+/* FORM */
+.field{margin-bottom:18px}
+.field label{display:block;font-size:.85rem;font-weight:600;color:var(--ink2);margin-bottom:6px}
+.field input[type="text"],.field input[type="url"],.field input[type="password"],.field textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:.95rem;outline:none;font-family:inherit}
+.field input:focus,.field textarea:focus{border-color:var(--pink)}
+.field textarea{min-height:80px;resize:vertical}
+.field .hint{font-size:.78rem;color:var(--muted);margin-top:4px}
+.field-inline{display:flex;align-items:center;gap:12px}
+.field-inline label{margin-bottom:0;white-space:nowrap;min-width:140px}
+.field-inline input[type="color"]{width:48px;height:36px;border:1.5px solid var(--line);border-radius:8px;padding:2px;cursor:pointer}
+.field-inline input[type="text"]{flex:1}
+
+/* IMAGE PREVIEW */
+.img-preview{width:120px;height:80px;border-radius:8px;border:1.5px solid var(--line);background:var(--cream);display:flex;align-items:center;justify-content:center;overflow:hidden;margin-top:6px;font-size:.72rem;color:var(--muted)}
+.img-preview img{width:100%;height:100%;object-fit:cover}
+
+/* SAVE */
+.save-bar{position:sticky;bottom:0;background:#fff;border-top:2px solid var(--line);padding:18px 24px;display:flex;align-items:center;gap:16px;margin:32px -24px 0;border-radius:0 0 0 0}
+.save-bar button{padding:14px 32px;background:var(--pink);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer}
+.save-bar button:hover{background:var(--pink-dark)}
+.save-bar .status{font-size:.85rem;color:var(--muted)}
+.save-bar .status.ok{color:var(--green)}
+.save-bar .status.err{color:var(--red)}
+
+/* TABS */
+.tabs{display:flex;gap:4px;margin-bottom:24px;flex-wrap:wrap}
+.tab{padding:10px 20px;border-radius:10px;font-size:.88rem;font-weight:600;cursor:pointer;background:var(--cream);color:var(--muted);border:none}
+.tab.active{background:var(--pink);color:#fff}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+</style>
+</head>
+<body>
+
+<!-- ====== LOGIN SCREEN ====== -->
+<div class="login-wrap" id="login-screen">
+  <div class="login-box">
+    <h1>Admin Advertorial</h1>
+    <p>SAY : PDRN Pink Collagen Volume Multi Balm</p>
+    <input type="password" id="pwd-input" placeholder="Mot de passe admin" autofocus>
+    <button onclick="tryLogin()">Entrer</button>
+    <div class="login-error" id="login-error">Mot de passe incorrect</div>
+  </div>
+</div>
+
+<!-- ====== ADMIN PANEL ====== -->
+<div class="admin" id="admin-panel">
+  <h1>Admin : Funnel Advertorial</h1>
+  <p class="sub">SAY : PDRN Pink Collagen Volume Multi Balm · Modifie le design, les textes, les images et le tracking.</p>
+
+  <!-- DASHBOARD -->
+  <h2>&#128202; Dashboard</h2>
+  <div class="dash">
+    <div class="dash-card"><div class="label">Visiteurs aujourd'hui</div><div class="val" id="d-today">--</div></div>
+    <div class="dash-card"><div class="label">Visiteurs 7j</div><div class="val" id="d-7d">--</div></div>
+    <div class="dash-card"><div class="label">Visiteurs 30j</div><div class="val" id="d-30d">--</div></div>
+    <div class="dash-card"><div class="label">Taux de conversion</div><div class="val" id="d-cvr">--<small>%</small></div></div>
+    <div class="dash-card"><div class="label">Scroll depth moyen</div><div class="val" id="d-scroll">--<small>%</small></div></div>
+    <div class="dash-card"><div class="label">Clics CTA #1</div><div class="val" id="d-cta1">--</div></div>
+    <div class="dash-card"><div class="label">Clics CTA #2 (final)</div><div class="val" id="d-cta2">--</div></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('tab-colors',this)">Couleurs</button>
+    <button class="tab" onclick="switchTab('tab-fonts',this)">Typographie</button>
+    <button class="tab" onclick="switchTab('tab-images',this)">Images</button>
+    <button class="tab" onclick="switchTab('tab-texts',this)">Textes</button>
+    <button class="tab" onclick="switchTab('tab-tracking',this)">Tracking</button>
+    <button class="tab" onclick="switchTab('tab-cta',this)">Lien CTA</button>
+    <button class="tab" onclick="switchTab('tab-settings',this)">Reglages</button>
+  </div>
+
+  <!-- TAB: COULEURS -->
+  <div class="tab-panel active" id="tab-colors">
+    <h2>Couleurs (DA)</h2>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:18px">Change les couleurs du design. Le color picker met a jour la valeur hex en temps reel.</p>
+    <div id="color-fields"></div>
+  </div>
+
+  <!-- TAB: TYPOGRAPHIE -->
+  <div class="tab-panel" id="tab-fonts">
+    <h2>Typographie</h2>
+    <div class="field">
+      <label>Police titres (Headline)</label>
+      <input type="text" id="font-headline" placeholder="Fraunces">
+      <div class="hint">Nom exact de la Google Font (ex: Fraunces, Playfair Display, Lora)</div>
+    </div>
+    <div class="field">
+      <label>Police corps (Body)</label>
+      <input type="text" id="font-body" placeholder="Inter">
+      <div class="hint">Nom exact de la Google Font (ex: Inter, Roboto, Open Sans)</div>
+    </div>
+  </div>
+
+  <!-- TAB: IMAGES -->
+  <div class="tab-panel" id="tab-images">
+    <h2>Images</h2>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:18px">Colle l'URL de tes images hebergees (Shopify > Parametres > Fichiers, ou tout CDN).</p>
+    <div id="image-fields"></div>
+  </div>
+
+  <!-- TAB: TEXTES -->
+  <div class="tab-panel" id="tab-texts">
+    <h2>Textes cles</h2>
+    <div id="text-fields"></div>
+  </div>
+
+  <!-- TAB: TRACKING -->
+  <div class="tab-panel" id="tab-tracking">
+    <h2>Tracking IDs</h2>
+    <div class="field">
+      <label>Meta Pixel ID</label>
+      <input type="text" id="track-meta" placeholder="123456789012345">
+      <div class="hint">Ton Pixel ID Meta (Facebook). Laisse vide pour desactiver.</div>
+    </div>
+    <div class="field">
+      <label>Google Analytics ID (optionnel)</label>
+      <input type="text" id="track-ga" placeholder="G-XXXXXXXXXX">
+      <div class="hint">Ton GA4 Measurement ID. Laisse vide pour desactiver.</div>
+    </div>
+  </div>
+
+  <!-- TAB: CTA -->
+  <div class="tab-panel" id="tab-cta">
+    <h2>Lien CTA (destination)</h2>
+    <div class="field">
+      <label>URL de destination (tous les boutons "Commander" / "Voir l'offre")</label>
+      <input type="url" id="cta-url" placeholder="https://www.votre-boutique.com/products/say-pdrn-multi-balm">
+    </div>
+  </div>
+
+  <!-- TAB: SETTINGS -->
+  <div class="tab-panel" id="tab-settings">
+    <h2>Reglages</h2>
+    <div class="field">
+      <label>Supabase URL</label>
+      <input type="text" id="set-sb-url" placeholder="https://xxxxx.supabase.co">
+    </div>
+    <div class="field">
+      <label>Supabase Anon Key</label>
+      <input type="text" id="set-sb-key" placeholder="eyJhbGciOi...">
+    </div>
+    <div class="field">
+      <label>Mot de passe admin</label>
+      <input type="password" id="set-pwd" placeholder="Nouveau mot de passe">
+      <div class="hint">Change le mot de passe d'acces a ce panel.</div>
+    </div>
+  </div>
+
+  <!-- SAVE BAR -->
+  <div class="save-bar">
+    <button onclick="saveConfig()">Sauvegarder</button>
+    <span class="status" id="save-status"></span>
+  </div>
+</div>
+
+<!-- ====== SCRIPTS ====== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  var CFG = window.FUNNEL_CONFIG || {};
+  var supabaseClient = null;
+  var liveConfig = {}; // La config courante qu'on edite
+
+  /* ========================================
+     IMAGE DEFINITIONS (labels + keys)
+     ======================================== */
+  var IMAGE_DEFS = [
+    {key:'hero',         label:'Hero : Femme 38 ans appliquant le stick sous l\'oeil'},
+    {key:'testimonial1', label:'Photo temoignage : Sophie L.'},
+    {key:'testimonial2', label:'Photo temoignage : Camille D.'},
+    {key:'testimonial3', label:'Photo temoignage : Julie M.'}
+  ];
+
+  /* ========================================
+     TEXT DEFINITIONS (labels + keys)
+     ======================================== */
+  var TEXT_DEFS = [
+    {key:'sponsoredBar',     label:'Barre sponsorise',            type:'text'},
+    {key:'h1',               label:'Titre H1 (headline)',         type:'textarea'},
+    {key:'dek',              label:'Sous-titre (dek)',            type:'textarea'},
+    {key:'productName',      label:'Nom du produit',              type:'text'},
+    {key:'pullQuote',        label:'Pull quote (citation)',       type:'textarea'},
+    {key:'cta1Title',        label:'CTA #1 : Titre',             type:'text'},
+    {key:'cta1Sub',          label:'CTA #1 : Sous-titre',        type:'text'},
+    {key:'cta1Button',       label:'CTA #1 : Texte bouton',      type:'text'},
+    {key:'cta1Guarantee',    label:'CTA #1 : Garantie',          type:'text'},
+    {key:'cta2Title',        label:'CTA #2 : Titre',             type:'text'},
+    {key:'cta2Sub',          label:'CTA #2 : Sous-titre',        type:'text'},
+    {key:'cta2Button',       label:'CTA #2 : Texte bouton',      type:'text'},
+    {key:'cta2Guarantee',    label:'CTA #2 : Garantie',          type:'text'},
+    {key:'testimonial1Name', label:'Temoin 1 : Nom',             type:'text'},
+    {key:'testimonial1Text', label:'Temoin 1 : Texte',           type:'textarea'},
+    {key:'testimonial2Name', label:'Temoin 2 : Nom',             type:'text'},
+    {key:'testimonial2Text', label:'Temoin 2 : Texte',           type:'textarea'},
+    {key:'testimonial3Name', label:'Temoin 3 : Nom',             type:'text'},
+    {key:'testimonial3Text', label:'Temoin 3 : Texte',           type:'textarea'},
+    {key:'footerDisclaimer', label:'Footer : Disclaimer',        type:'textarea'}
+  ];
+
+  /* ========================================
+     COLOR LABELS
+     ======================================== */
+  var COLOR_LABELS = {
+    '--rose-50':'Rose 50 (fond clair)',
+    '--rose-100':'Rose 100',
+    '--rose-300':'Rose 300',
+    '--pink-600':'Pink 600 (accent principal)',
+    '--pink-700':'Pink 700 (accent fonce)',
+    '--ink':'Ink (texte principal)',
+    '--ink-2':'Ink 2 (texte secondaire)',
+    '--muted':'Muted (texte leger)',
+    '--cream':'Cream (fond section)',
+    '--line':'Line (bordures)',
+    '--gold':'Gold (etoiles)',
+    '--green':'Green (check)',
+    '--france':'France (bleu)',
+    '--france-red':'France (rouge)'
+  };
+
+  /* ========================================
+     LOGIN
+     ======================================== */
+  window.tryLogin = function(){
+    var pwd = document.getElementById('pwd-input').value;
+    var expected = liveConfig.adminPassword || CFG.adminPassword || 'say2026';
+    if(pwd === expected){
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('admin-panel').style.display = 'block';
+      loadDashboard();
+    } else {
+      document.getElementById('login-error').style.display = 'block';
+    }
+  };
+  // Enter key
+  document.getElementById('pwd-input').addEventListener('keyup', function(e){
+    if(e.key === 'Enter') window.tryLogin();
+  });
+
+  /* ========================================
+     TABS
+     ======================================== */
+  window.switchTab = function(panelId, btn){
+    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    document.getElementById(panelId).classList.add('active');
+    btn.classList.add('active');
+  };
+
+  /* ========================================
+     BUILD FORM FIELDS
+     ======================================== */
+  function buildColorFields(){
+    var container = document.getElementById('color-fields');
+    var colors = liveConfig.colors || CFG.colors || {};
+    var html = '';
+    for(var key in colors){
+      var label = COLOR_LABELS[key] || key;
+      html += '<div class="field field-inline">';
+      html += '<label>'+label+'</label>';
+      html += '<input type="color" data-color-key="'+key+'" value="'+colors[key]+'" onchange="syncColorHex(this)">';
+      html += '<input type="text" data-color-hex="'+key+'" value="'+colors[key]+'" oninput="syncColorPicker(this)" style="max-width:120px">';
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  window.syncColorHex = function(picker){
+    var key = picker.getAttribute('data-color-key');
+    var hex = document.querySelector('[data-color-hex="'+key+'"]');
+    if(hex) hex.value = picker.value;
+  };
+  window.syncColorPicker = function(hex){
+    var key = hex.getAttribute('data-color-hex');
+    var picker = document.querySelector('[data-color-key="'+key+'"]');
+    if(picker && /^#[0-9a-fA-F]{6}$/.test(hex.value)) picker.value = hex.value;
+  };
+
+  function buildImageFields(){
+    var container = document.getElementById('image-fields');
+    var images = liveConfig.images || CFG.images || {};
+    var html = '';
+    for(var i=0; i<IMAGE_DEFS.length; i++){
+      var d = IMAGE_DEFS[i];
+      var val = images[d.key] || '';
+      html += '<div class="field">';
+      html += '<label>'+d.label+'</label>';
+      html += '<input type="url" data-img-key="'+d.key+'" value="'+val+'" oninput="previewImg(this)" placeholder="https://cdn.shopify.com/...">';
+      html += '<div class="img-preview" data-img-preview="'+d.key+'">'+(val ? '<img src="'+val+'">' : 'Aucune image')+'</div>';
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  window.previewImg = function(input){
+    var key = input.getAttribute('data-img-key');
+    var preview = document.querySelector('[data-img-preview="'+key+'"]');
+    if(preview){
+      if(input.value){
+        preview.innerHTML = '<img src="'+input.value+'">';
+      } else {
+        preview.innerHTML = 'Aucune image';
+      }
+    }
+  };
+
+  function buildTextFields(){
+    var container = document.getElementById('text-fields');
+    var texts = liveConfig.texts || CFG.texts || {};
+    var html = '';
+    for(var i=0; i<TEXT_DEFS.length; i++){
+      var d = TEXT_DEFS[i];
+      var val = texts[d.key] || '';
+      html += '<div class="field">';
+      html += '<label>'+d.label+'</label>';
+      if(d.type === 'textarea'){
+        html += '<textarea data-text-key="'+d.key+'">'+val+'</textarea>';
+      } else {
+        html += '<input type="text" data-text-key="'+d.key+'" value="'+escapeAttr(val)+'">';
+      }
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  function escapeAttr(str){
+    return str.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function populateFields(){
+    // Fonts
+    document.getElementById('font-headline').value = (liveConfig.fonts || CFG.fonts || {}).headline || 'Fraunces';
+    document.getElementById('font-body').value = (liveConfig.fonts || CFG.fonts || {}).body || 'Inter';
+    // Tracking
+    document.getElementById('track-meta').value = liveConfig.metaPixelId || CFG.metaPixelId || '';
+    document.getElementById('track-ga').value = liveConfig.gaId || CFG.gaId || '';
+    // CTA URL
+    document.getElementById('cta-url').value = liveConfig.ctaUrl || CFG.ctaUrl || '';
+    // Settings
+    document.getElementById('set-sb-url').value = liveConfig.supabaseUrl || CFG.supabaseUrl || '';
+    document.getElementById('set-sb-key').value = liveConfig.supabaseAnonKey || CFG.supabaseAnonKey || '';
+    document.getElementById('set-pwd').value = '';
+  }
+
+  /* ========================================
+     COLLECT CONFIG FROM FORM
+     ======================================== */
+  function collectConfig(){
+    var cfg = {};
+    // Colors
+    cfg.colors = {};
+    document.querySelectorAll('[data-color-key]').forEach(function(el){
+      cfg.colors[el.getAttribute('data-color-key')] = el.value;
+    });
+    // Fonts
+    cfg.fonts = {
+      headline: document.getElementById('font-headline').value || 'Fraunces',
+      body: document.getElementById('font-body').value || 'Inter'
+    };
+    // Images
+    cfg.images = {};
+    document.querySelectorAll('[data-img-key]').forEach(function(el){
+      cfg.images[el.getAttribute('data-img-key')] = el.value;
+    });
+    // Texts
+    cfg.texts = {};
+    document.querySelectorAll('[data-text-key]').forEach(function(el){
+      cfg.texts[el.getAttribute('data-text-key')] = el.value;
+    });
+    // Tracking
+    cfg.metaPixelId = document.getElementById('track-meta').value;
+    cfg.gaId = document.getElementById('track-ga').value;
+    // CTA
+    cfg.ctaUrl = document.getElementById('cta-url').value;
+    // Settings
+    var newUrl = document.getElementById('set-sb-url').value;
+    var newKey = document.getElementById('set-sb-key').value;
+    if(newUrl) cfg.supabaseUrl = newUrl;
+    if(newKey) cfg.supabaseAnonKey = newKey;
+    var newPwd = document.getElementById('set-pwd').value;
+    if(newPwd) cfg.adminPassword = newPwd;
+
+    return cfg;
+  }
+
+  /* ========================================
+     SAVE CONFIG TO SUPABASE
+     ======================================== */
+  window.saveConfig = function(){
+    var status = document.getElementById('save-status');
+    var cfg = collectConfig();
+
+    // Si Supabase n'est pas configure, utiliser les valeurs du formulaire
+    var sbUrl = cfg.supabaseUrl || CFG.supabaseUrl;
+    var sbKey = cfg.supabaseAnonKey || CFG.supabaseAnonKey;
+
+    if(!sbUrl || !sbKey){
+      status.textContent = 'Erreur : configure d\'abord Supabase URL et Anon Key dans l\'onglet Reglages';
+      status.className = 'status err';
+      return;
+    }
+
+    status.textContent = 'Sauvegarde en cours...';
+    status.className = 'status';
+
+    var client = window.supabase.createClient(sbUrl, sbKey);
+    client.from('funnel_config')
+      .update({ config: cfg, updated_at: new Date().toISOString() })
+      .eq('funnel_id', 'advertorial')
+      .then(function(res){
+        if(res.error){
+          // Peut-etre que la ligne n'existe pas, on fait un upsert
+          return client.from('funnel_config').upsert({
+            funnel_id: 'advertorial',
+            config: cfg,
+            updated_at: new Date().toISOString()
+          });
+        }
+        return res;
+      })
+      .then(function(res){
+        if(res && res.error){
+          status.textContent = 'Erreur : ' + res.error.message;
+          status.className = 'status err';
+        } else {
+          status.textContent = 'Sauvegarde reussie !';
+          status.className = 'status ok';
+          liveConfig = cfg;
+          // Mettre a jour le client Supabase si les credentials ont change
+          if(cfg.supabaseUrl && cfg.supabaseAnonKey){
+            supabaseClient = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+          }
+        }
+      })
+      .catch(function(err){
+        status.textContent = 'Erreur reseau : ' + err.message;
+        status.className = 'status err';
+      });
+  };
+
+  /* ========================================
+     DASHBOARD — Load Analytics
+     ======================================== */
+  function loadDashboard(){
+    if(!supabaseClient) return;
+
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+    var d7 = new Date(now.getTime() - 7*24*60*60*1000).toISOString();
+    var d30 = new Date(now.getTime() - 30*24*60*60*1000).toISOString();
+
+    // Visiteurs uniques aujourd'hui
+    supabaseClient.from('funnel_events')
+      .select('visitor_id', {count:'exact', head:true})
+      .eq('funnel_id','advertorial').eq('event_type','page_view')
+      .gte('created_at', today)
+      .then(function(r){ setDash('d-today', r.count || 0); });
+
+    // Visiteurs 7j
+    supabaseClient.from('funnel_events')
+      .select('visitor_id', {count:'exact', head:true})
+      .eq('funnel_id','advertorial').eq('event_type','page_view')
+      .gte('created_at', d7)
+      .then(function(r){ setDash('d-7d', r.count || 0); });
+
+    // Visiteurs 30j
+    supabaseClient.from('funnel_events')
+      .select('visitor_id', {count:'exact', head:true})
+      .eq('funnel_id','advertorial').eq('event_type','page_view')
+      .gte('created_at', d30)
+      .then(function(r){
+        var visitors = r.count || 0;
+        setDash('d-30d', visitors);
+
+        // Conversions 30j
+        supabaseClient.from('funnel_events')
+          .select('id', {count:'exact', head:true})
+          .eq('funnel_id','advertorial').eq('event_type','conversion')
+          .gte('created_at', d30)
+          .then(function(r2){
+            var conv = r2.count || 0;
+            var cvr = visitors > 0 ? ((conv / visitors) * 100).toFixed(1) : 0;
+            setDash('d-cvr', cvr);
+          });
+      });
+
+    // Clics CTA
+    supabaseClient.from('funnel_events')
+      .select('event_data', {count:'exact', head:false})
+      .eq('funnel_id','advertorial').eq('event_type','cta_click')
+      .gte('created_at', d30)
+      .then(function(r){
+        var cta1 = 0, cta2 = 0;
+        if(r.data){
+          r.data.forEach(function(e){
+            if(e.event_data && e.event_data.cta === 'cta_1') cta1++;
+            if(e.event_data && (e.event_data.cta === 'cta_2' || e.event_data.cta === 'cta_final')) cta2++;
+          });
+        }
+        setDash('d-cta1', cta1);
+        setDash('d-cta2', cta2);
+      });
+
+    // Scroll depth moyen
+    supabaseClient.from('funnel_events')
+      .select('event_type')
+      .eq('funnel_id','advertorial')
+      .in('event_type', ['scroll_25','scroll_50','scroll_75','scroll_100'])
+      .gte('created_at', d30)
+      .then(function(r){
+        if(!r.data || r.data.length === 0){
+          setDash('d-scroll', 0);
+          return;
+        }
+        var maxMap = {};
+        r.data.forEach(function(e){
+          var pct = parseInt(e.event_type.split('_')[1]);
+          // On ne peut pas grouper par visitor ici, on fait une approximation
+          maxMap[pct] = (maxMap[pct] || 0) + 1;
+        });
+        // Approx : weighted average
+        var total = 0, count = 0;
+        for(var p in maxMap){ total += parseInt(p) * maxMap[p]; count += maxMap[p]; }
+        setDash('d-scroll', count > 0 ? Math.round(total/count) : 0);
+      });
+  }
+
+  function setDash(id, val){
+    var el = document.getElementById(id);
+    if(!el) return;
+    // Garder les <small> existants
+    var small = el.querySelector('small');
+    if(small){
+      el.firstChild.textContent = val;
+    } else {
+      el.textContent = val;
+    }
+  }
+
+  /* ========================================
+     INIT
+     ======================================== */
+  function init(){
+    // Essayer de charger la config depuis Supabase d'abord
+    if(CFG.supabaseUrl && CFG.supabaseAnonKey && typeof window.supabase !== 'undefined'){
+      supabaseClient = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseAnonKey);
+      supabaseClient.from('funnel_config')
+        .select('config')
+        .eq('funnel_id', 'advertorial')
+        .single()
+        .then(function(res){
+          if(res.data && res.data.config && Object.keys(res.data.config).length > 0){
+            liveConfig = Object.assign({}, CFG, res.data.config);
+            if(res.data.config.colors) liveConfig.colors = Object.assign({}, CFG.colors, res.data.config.colors);
+            if(res.data.config.fonts) liveConfig.fonts = Object.assign({}, CFG.fonts, res.data.config.fonts);
+            if(res.data.config.images) liveConfig.images = Object.assign({}, CFG.images, res.data.config.images);
+            if(res.data.config.texts) liveConfig.texts = Object.assign({}, CFG.texts, res.data.config.texts);
+          } else {
+            liveConfig = Object.assign({}, CFG);
+          }
+          buildUI();
+        })
+        .catch(function(){
+          liveConfig = Object.assign({}, CFG);
+          buildUI();
+        });
+    } else {
+      liveConfig = Object.assign({}, CFG);
+      buildUI();
+    }
+  }
+
+  function buildUI(){
+    buildColorFields();
+    buildImageFields();
+    buildTextFields();
+    populateFields();
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
+</script>
+</body>
+</html>

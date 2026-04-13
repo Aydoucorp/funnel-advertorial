@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SAY : PDRN Pink Collagen Volume Multi Balm : Beaute Mag</title>
+
+<!-- Google Fonts (chargees dynamiquement par le script, fallback ici) -->
+<link id="google-fonts-link" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   CSS — Design valide (identique au template fourni)
+   Les couleurs utilisent des CSS custom properties pour
+   etre modifiables depuis l'admin via config.js
+   ============================================================ */
+:root{
+  --rose-50:#FFF5F8;--rose-100:#FCE7EC;--rose-300:#F7B8CB;
+  --pink-600:#D63D7A;--pink-700:#B82A63;
+  --ink:#1A1A2E;--ink-2:#3B3B52;--muted:#6B6B80;
+  --cream:#FBF7F4;--line:#EFE2E7;--gold:#C9A66B;--green:#1F8A5B;
+  --france:#0055A4;--france-red:#EF4135;
+  --font-headline:'Fraunces',Georgia,serif;
+  --font-body:'Inter',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:var(--ink);font-family:var(--font-body);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--font-headline);font-weight:600;line-height:1.2;letter-spacing:-.015em;color:var(--ink)}
+em.serif{font-style:italic;font-family:var(--font-headline)}
+img{max-width:100%;display:block}
+
+/* MAG NAV */
+.mag-nav{background:var(--ink);color:#fff;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;font-size:.85rem;border-bottom:3px solid var(--pink-600)}
+.mag-brand{font-family:var(--font-headline);font-size:1.45rem;font-weight:700;letter-spacing:.02em}
+.mag-brand em{color:var(--rose-300);font-style:italic}
+.mag-links{display:flex;gap:24px;color:#bcbccb;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
+.mag-links a{color:inherit;text-decoration:none}
+@media(max-width:760px){.mag-links{display:none}}
+
+.sponsored-bar{background:var(--cream);padding:8px 28px;text-align:center;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--line)}
+
+/* WRAP */
+.wrap{max-width:760px;margin:0 auto;padding:0 28px}
+@media(max-width:760px){.wrap{padding:0 22px}}
+
+/* HEADER */
+.art-header{padding:48px 0 28px;border-bottom:1px solid var(--line)}
+.cat{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--pink-600);font-weight:700}
+h1.art-title{font-size:clamp(1.85rem,3.6vw,2.8rem);margin:14px 0 18px;line-height:1.18}
+.dek{font-family:var(--font-headline);font-style:italic;font-size:1.18rem;color:var(--ink-2);margin-bottom:24px;line-height:1.5}
+.byline{display:flex;align-items:center;gap:14px;font-size:.85rem;color:var(--muted)}
+.byline .ava{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--rose-100),var(--rose-300));display:flex;align-items:center;justify-content:center;color:var(--pink-700);font-family:var(--font-headline);font-weight:700}
+.byline b{color:var(--ink-2);display:block;font-weight:600;font-family:var(--font-body)}
+
+/* HERO IMG */
+.hero-img{aspect-ratio:1.7/1;background:linear-gradient(135deg,var(--rose-100),var(--rose-300));margin:32px 0;border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--pink-700);font-family:var(--font-headline);font-style:italic;text-align:center;padding:30px;overflow:hidden}
+.hero-img img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+.cap{font-size:.78rem;color:var(--muted);font-style:italic;text-align:center;margin-top:-22px;margin-bottom:32px}
+
+/* ARTICLE BODY */
+.art-body p{font-size:1.08rem;color:var(--ink-2);margin-bottom:20px}
+.art-body p.lead{font-size:1.18rem;color:var(--ink);font-weight:500}
+.art-body p::first-letter{font-family:var(--font-headline)}
+.art-body h2{font-size:clamp(1.45rem,2.4vw,1.85rem);margin:42px 0 18px}
+.art-body h3{font-size:1.25rem;margin:28px 0 12px}
+.art-body strong{color:var(--ink);font-weight:600}
+.art-body em{font-style:italic}
+
+.pull-quote{background:var(--cream);border-left:4px solid var(--pink-600);padding:24px 28px;margin:32px 0;border-radius:0 14px 14px 0}
+.pull-quote p{font-family:var(--font-headline);font-style:italic;font-size:1.32rem;color:var(--ink);line-height:1.45;margin:0}
+
+.france-callout{background:linear-gradient(135deg,#fff,var(--rose-50));border:2px solid var(--france);border-radius:16px;padding:24px 28px;margin:32px 0;display:flex;gap:18px;align-items:center}
+.france-callout .flag{width:48px;height:32px;background:linear-gradient(to right,var(--france) 33%,#fff 33%,#fff 66%,var(--france-red) 66%);border-radius:4px;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.france-callout p{margin:0;font-size:.95rem;color:var(--ink-2)}
+.france-callout p b{color:var(--france)}
+
+.diary{background:var(--rose-50);border-radius:18px;padding:32px;margin:36px 0}
+.diary h3{margin-top:0;color:var(--pink-700);font-size:1.18rem}
+.diary .day{padding:16px 0;border-bottom:1px solid var(--rose-100)}
+.diary .day:last-child{border-bottom:0}
+.diary .day b{display:block;color:var(--pink-700);font-family:var(--font-headline);font-style:italic;margin-bottom:4px}
+
+.science-box{background:#fff;border:1.5px solid var(--rose-300);border-radius:18px;padding:30px;margin:36px 0}
+.science-box h3{margin-top:0;color:var(--pink-700);font-size:1.18rem;margin-bottom:18px}
+.science-box .duo{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:560px){.science-box .duo{grid-template-columns:1fr}}
+.science-box .a{background:var(--cream);border-radius:12px;padding:18px}
+.science-box .a .flag{font-size:1.4rem;margin-bottom:6px}
+.science-box .a h4{font-size:1.05rem;margin-bottom:6px}
+.science-box .a p{font-size:.86rem;color:var(--muted);margin:0}
+
+.testimonials-cluster{background:var(--cream);border-radius:18px;padding:32px;margin:36px 0}
+.testimonials-cluster h3{margin-top:0;color:var(--ink);font-size:1.18rem;margin-bottom:18px}
+.test{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.test:last-child{border-bottom:0}
+.test .ava{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--rose-100),var(--rose-300));flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--pink-700);font-family:var(--font-headline);font-weight:700;overflow:hidden}
+.test .ava img{width:100%;height:100%;object-fit:cover}
+.test .body{flex:1;font-size:.92rem;color:var(--ink-2)}
+.test .body b{color:var(--ink);display:block;margin-bottom:4px;font-family:var(--font-body)}
+.test .stars{color:var(--gold);font-size:.85rem;display:block;margin-top:4px}
+
+.cta-inline{background:linear-gradient(135deg,var(--pink-600),var(--pink-700));color:#fff;padding:36px 32px;border-radius:20px;margin:42px 0;text-align:center}
+.cta-inline h3{color:#fff;font-size:1.45rem;margin-bottom:10px}
+.cta-inline p{color:rgba(255,255,255,.92);font-size:.95rem;margin-bottom:18px}
+.cta-inline a{background:#fff;color:var(--pink-700);font-weight:700;padding:14px 32px;border-radius:999px;text-decoration:none;display:inline-block;font-size:.95rem;box-shadow:0 8px 22px rgba(0,0,0,.18)}
+.cta-inline .gtee{display:block;margin-top:14px;font-size:.78rem;color:rgba(255,255,255,.85)}
+
+footer.mag-foot{background:var(--ink);color:#bcbccb;padding:48px 28px;text-align:center;margin-top:60px;font-size:.82rem}
+footer.mag-foot .brand{font-family:var(--font-headline);color:#fff;font-size:1.45rem;margin-bottom:10px}
+footer.mag-foot p{max-width:540px;margin:8px auto}
+</style>
+</head>
+<body>
+
+<!-- ====== MAG NAV ====== -->
+<div class="mag-nav">
+  <div class="mag-brand">Beaute <em>Mag</em></div>
+  <div class="mag-links">
+    <a href="#">Soins</a>
+    <a href="#">Anti-age</a>
+    <a href="#">Tests produits</a>
+    <a href="#">Tendances</a>
+  </div>
+</div>
+
+<!-- ====== SPONSORED BAR ====== -->
+<div class="sponsored-bar" id="sponsored-bar">Article sponsorise · Partenariat avec SAY France</div>
+
+<!-- ====== ARTICLE ====== -->
+<article class="wrap">
+
+  <header class="art-header">
+    <div class="cat">&#9733; Test produit · Anti-age multi-zones</div>
+    <h1 class="art-title" id="art-title">&laquo;&nbsp;J'ai remplace 4 cremes anti-age par <em class="serif">UN</em> seul stick franco-coreen : voici ce qui s'est passe en 14 jours&nbsp;&raquo;</h1>
+    <p class="dek" id="art-dek">Secheresse, ridules, teint terne, relachement, cernes : les 5 signes qui me trahissaient sur 5 zones differentes du visage. Une amie dermatologue m'a glisse le nom d'un soin coreen formule avec un actif brevete <b>francais</b>. Voici mon journal de 14 jours.</p>
+    <div class="byline">
+      <div class="ava">CL</div>
+      <div>
+        <b>Par Claire Lemaitre</b>
+        <span>Journaliste beaute · Publie le 4 avril 2026 · Lecture : 7 min</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== HERO IMAGE ====== -->
+  <div class="hero-img" id="hero-img">
+    <span class="hero-placeholder">Photo lifestyle :<br>Femme 38 ans appliquant le stick<br>sous l'oeil : eclairage matinal</span>
+  </div>
+  <div class="cap">Le Multi Balm s'applique directement au stick sur les 5 zones : sans collant, sans friction, sans contact mains/produit.</div>
+
+  <!-- ====== ARTICLE BODY ====== -->
+  <div class="art-body">
+
+    <p class="lead">A 38 ans, je n'avais pas un probleme de peau. J'en avais cinq. Et c'est probablement le constat le plus deprimant que j'ai fait devant mon miroir cette annee.</p>
+
+    <p>Ca a commence par les cernes creux qui se sont installes, comme une marque permanente, sous mes yeux. Puis les ridules de surface, qui ne disparaissaient plus le matin. Puis les sillons qui se creusaient quand je souriais : ces petites parentheses qui ne plient plus dans le bon sens. Puis le cou, qu'on remarque toujours en dernier, qui a commence a perdre cette tension naturelle qu'il avait a 30 ans. Et bien sur, les levres : plus fines, plus seches, contour qui se floute.</p>
+
+    <p>Cinq zones. Cinq signes differents. Et dans ma salle de bain, <strong>quatre produits differents</strong> : un contour des yeux a 58&#8364;, un baume levres premium, une creme jour, une creme cou. Total : environ 140&#8364; tous les 6 semaines, et trois minutes par jour pour tout appliquer dans le bon ordre. Pour un resultat... franchement mediocre.</p>
+
+    <h2>&laquo;&nbsp;Tu cherches le mauvais produit&nbsp;&raquo;</h2>
+
+    <p>C'est mon amie Lea, dermatologue dans le 16e, qui m'a dit ca un soir, en voyant mon etagere. <em>&laquo;&nbsp;Tu cherches le mauvais produit. Tu cherches un produit qui repare une zone. Ce qu'il te faut, c'est un produit qui repare un mecanisme : et qui peut s'appliquer partout.&nbsp;&raquo;</em></p>
+
+    <p>Elle m'a explique quelque chose de tres simple, mais que personne dans l'industrie cosmetique ne dit jamais aussi clairement : <strong>a 30 ans, on perd 1% de collagene par an. Et ce n'est pas localise.</strong> Ce n'est pas "les levres". Ce n'est pas "le contour des yeux". C'est <em>partout ou la peau est fine et exposee</em>. Levres, yeux, pommettes, sillons, cou. Les 5 zones les plus visibles du visage perdent leur collagene en parallele, a la meme vitesse. Donc empiler 4 cremes ciblees, c'est traiter 4 symptomes locaux en oubliant le mecanisme global.</p>
+
+    <p>Elle m'a tendu son telephone. <em>&laquo;&nbsp;Regarde ca. C'est ce que je conseille a mes patientes qui ne veulent pas faire de filler. C'est coreen, mais l'actif star est francais. Tu vas comprendre.&nbsp;&raquo;</em></p>
+
+    <h2>Le seul stick au monde qui combine PDRN coreen et Volufiline 5% francaise</h2>
+
+    <p>Le produit : <strong id="product-name-inline">SAY : PDRN Pink Collagen Volume Multi Balm</strong>. Un stick rose, format baume, qui ne ressemble a aucun de mes 4 produits actuels. Mais ce qui m'a fait tilter, c'est la composition. Pas un, mais <strong>deux actifs brevetes</strong> qui jouent sur deux mecanismes biologiques complementaires.</p>
+
+    <!-- ====== FRANCE CALLOUT ====== -->
+    <div class="france-callout">
+      <div class="flag"></div>
+      <p><b>Volufiline 5%</b> : actif brevete de <b>Sederma</b>, le leader mondial francais de la cosmetique active (groupe Croda). Il agit en stimulant le stockage lipidique dans les cellules graisseuses existantes de la peau, creant un effet "fuller-looking" naturel. C'est techniquement la version cosmetique du meme mecanisme qu'un mini-filler : sans la moindre aiguille.</p>
+    </div>
+
+    <!-- ====== SCIENCE BOX ====== -->
+    <div class="science-box">
+      <h3>&#9733; Pourquoi ce stick fait ce qu'aucune creme ne fait : la double science &#9733;</h3>
+      <div class="duo">
+        <div class="a">
+          <div class="flag">&#127472;&#127479;</div>
+          <h4>PDRN : Coree</h4>
+          <p><em>Polydeoxyribonucleotide</em>. Fragment d'ADN bioactif issu de la medecine regenerative coreenne. Il <strong>relance la synthese naturelle de collagene</strong> et accelere la regeneration cellulaire. Effet : densite, fermete, eclat.</p>
+        </div>
+        <div class="a">
+          <div class="flag">&#127467;&#127479;</div>
+          <h4>Volufiline 5% : France</h4>
+          <p>Brevete <em>Sederma</em>. Stimule le <strong>stockage lipidique dans les adipocytes existants</strong>. Effet : volume, repulpage des zones creuses (cernes, sillons), comblement visuel des microreliefs.</p>
+        </div>
+      </div>
+    </div>
+
+    <p>Le PDRN traite la <strong>densite</strong>. La Volufiline traite le <strong>volume</strong>. Ensemble, ils reproduisent a eux deux les benefices visuels que cherchent les femmes qui consultent un medecin esthetique. Sauf que la, c'est un stick a 28&#8364;, pas une seringue a 600&#8364;.</p>
+
+    <p>Et les 5 signes du packaging : secheresse, ridules visibles, teint terne, relachement, cernes : correspondent exactement aux 5 problemes que j'avais identifies devant mon miroir. Coincidence ? Non. C'est la promesse <em>Multi Balm for Easy, Multi Uses</em> imprimee noir sur blanc sur la boite officielle SAY.</p>
+
+    <p>J'ai commande. J'ai promis a Lea de tenir un journal sur 14 jours. Voici ce qui s'est passe.</p>
+
+    <!-- ====== DIARY 14 JOURS ====== -->
+    <div class="diary">
+      <h3>&#128212; Mon journal de 14 jours</h3>
+      <div class="day"><b>Jour 1</b> Texture : melting balm, comme promis. Glisse sur la peau, fond instantanement, ne laisse aucun film collant. J'applique sous les yeux, sur les levres, sur les pommettes, dans les sillons, et sur le cou. En 90 secondes, c'est fait. Premier ressenti : la peau "boit" le produit. Mes levres sont deja plus souples le soir.</div>
+      <div class="day"><b>Jour 3</b> Plus de tiraillements. La secheresse a disparu sur les 5 zones. Les ridules sous les yeux paraissent un peu lissees (effet hydratation, je sais, mais c'est deja ca).</div>
+      <div class="day"><b>Jour 7</b> Premier vrai changement visible. Les cernes paraissent moins creux. J'ai du arreter mon contour des yeux Caudalie pendant 4 jours par paresse : et je n'ai vu aucun manque. Le teint est plus net, plus repose.</div>
+      <div class="day"><b>Jour 10</b> Mon mari, qui ne remarque jamais rien : <em>&laquo;&nbsp;T'as fait un truc a ton visage ? T'as l'air reposee.&nbsp;&raquo;</em> Je n'avais pas dormi davantage. C'est la Volufiline qui commence a agir sur les zones creuses.</div>
+      <div class="day"><b>Jour 14</b> Verdict. Mes sillons sont visiblement adoucis. Le cou est plus tonique au toucher. Les pommettes ont retrouve un peu de relief. Et je n'ai utilise qu'<strong>UN seul stick</strong> sur les 5 zones, deux fois par jour. Mes 4 anciens produits sont restes dans le tiroir, intacts.</div>
+    </div>
+
+    <!-- ====== PULL QUOTE ====== -->
+    <div class="pull-quote">
+      <p id="pull-quote-text">&laquo;&nbsp;Au jour 14, j'ai annule mon rendez-vous chez le medecin esthetique. Pas par principe : parce qu'un seul stick a 28&#8364; avait remplace les 3 zones que j'allais faire injecter.&nbsp;&raquo;</p>
+    </div>
+
+    <h2>Pourquoi ca marche (et pourquoi ca aurait du exister depuis 10 ans)</h2>
+
+    <p>J'ai pose la question a Lea. Pourquoi est-ce que personne, en France, n'avait pense a formuler un stick comme celui-ci avant ? Sa reponse : <em>&laquo;&nbsp;Parce qu'il fallait deux choses qui n'arrivent jamais ensemble. D'abord, un actif coreen ultra-regenerant comme le PDRN : qui a 20 ans d'historique en medecine esthetique en Coree mais qui est arrive tard en cosmetique europeenne. Ensuite, un actif francais comme la Volufiline 5%, qui est utilise depuis longtemps par les grandes maisons mais qui n'a jamais ete couple au PDRN dans un format multi-zones. SAY a fait les deux. Et c'est rare qu'un labo coreen ait la sagesse d'utiliser un actif francais en formule.&nbsp;&raquo;</em></p>
+
+    <h3>Trois raisons pour lesquelles UN stick remplace reellement 4 produits</h3>
+
+    <p><strong>1. Le PDRN agit identiquement sur les 5 zones fragiles.</strong> Contrairement au retinol (irritant pour le contour des yeux) ou a l'acide hyaluronique (volume mais pas de densite), le PDRN booste la synthese de collagene sur n'importe quelle peau fine : levres, paupieres, pommettes, sillons, cou. Il ne fait pas de discrimination de zone.</p>
+
+    <p><strong>2. La Volufiline 5% Sederma comble visuellement les zones creuses.</strong> La ou une creme jour se contente d'hydrater, la Volufiline va remplir les microreliefs des ridules et des cernes en stimulant le stockage lipidique local. C'est un mecanisme brevete, prouve, et qui agit des 14 jours.</p>
+
+    <p><strong>3. La texture <em>melting balm</em> rend le multi-zones reellement praticable.</strong> C'est le detail qui change tout : sans collant, sans contact main/produit, sans transfert. On peut passer du contour des yeux aux levres au cou avec le meme stick, sans penser a l'hygiene, sans tacher l'oreiller, sans gacher le maquillage.</p>
+
+    <!-- ====== CTA INLINE #1 ====== -->
+    <div class="cta-inline" id="cta-block-1">
+      <h3 id="cta1-title">L'offre que SAY fait aux lectrices de Beaute Mag</h3>
+      <p id="cta1-sub">Pack 2 sticks (1 maison + 1 sac) a <b>44&#8364; au lieu de 56&#8364;</b> · livraison 48h offerte · garantie 30 jours</p>
+      <a href="#" id="cta1-btn" data-cta="cta_1">Voir l'offre SAY &#8594;</a>
+      <span class="gtee" id="cta1-gtee">&#10003; Satisfait ou rembourse sans question · &#10003; Le seul stick PDRN + Volufiline 5% du marche FR</span>
+    </div>
+
+    <h2>Et les autres femmes qui l'ont teste en disent quoi ?</h2>
+
+    <p>J'ai voulu verifier que mon experience n'etait pas unique. J'ai contacte trois lectrices qui avaient deja commande le stick depuis qu'on a commence a en parler dans la redaction. Voici ce qu'elles m'ont dit.</p>
+
+    <!-- ====== TESTIMONIALS ====== -->
+    <div class="testimonials-cluster">
+      <h3>Temoignages</h3>
+      <div class="test" id="testimonial-1">
+        <div class="ava" id="ava-1">SL</div>
+        <div class="body">
+          <b id="test1-name">Sophie L., 38 ans, Paris</b>
+          <span id="test1-text">&laquo;&nbsp;Mes cernes creux etaient mon obsession depuis 2 ans. Au bout de 14 jours, mon mari a remarque avant moi. J'utilise aussi le stick sur les levres et le cou : tout ca avec un seul produit, c'est presque irreel.&nbsp;&raquo;</span>
+          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733; Achat verifie</span>
+        </div>
+      </div>
+      <div class="test" id="testimonial-2">
+        <div class="ava" id="ava-2">CD</div>
+        <div class="body">
+          <b id="test2-name">Camille D., 42 ans, Lyon</b>
+          <span id="test2-text">&laquo;&nbsp;J'avais 4 produits dans ma salle de bain : Caudalie, Nuxe, Dior, et une creme jour. Aujourd'hui je n'ai plus qu'UN stick. Mes sillons sont nettement adoucis et le cou est plus ferme. Economie : ~100&#8364; par mois.&nbsp;&raquo;</span>
+          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733; Achat verifie</span>
+        </div>
+      </div>
+      <div class="test" id="testimonial-3">
+        <div class="ava" id="ava-3">JM</div>
+        <div class="body">
+          <b id="test3-name">Julie M., 35 ans, Bordeaux</b>
+          <span id="test3-text">&laquo;&nbsp;Quand j'ai vu "Volufiline 5% Sederma France" sur le packaging, j'ai compris pourquoi ca marche. C'est pas du marketing K-beauty, c'est de la vraie science europeenne. Mes pattes d'oie ont nettement diminue en 3 semaines.&nbsp;&raquo;</span>
+          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733; Achat verifie</span>
+        </div>
+      </div>
+    </div>
+
+    <h2>Verdict de Beaute Mag</h2>
+
+    <p>Le <strong>SAY : PDRN Pink Collagen Volume Multi Balm</strong> est <strong>le premier stick que je recommande sans reserve a toutes les lectrices entre 30 et 55 ans</strong>. Pas parce qu'il est miraculeux, mais parce qu'il est, a ma connaissance, le seul produit du marche francais a combiner deux actifs scientifiques brevetes (PDRN coreen + Volufiline 5% Sederma &#127467;&#127479;) dans un format multi-zones / multi-signes praticable au quotidien.</p>
+
+    <p>Si vous empilez actuellement 3 ou 4 produits cibles (baume levres, contour des yeux, creme cou, creme jour) et que vous n'etes pas pleinement satisfaite des resultats, ce stick va simplifier votre routine <em>et</em> ameliorer vos resultats. C'est rare. Et a 28&#8364;, le ratio efficacite/prix est imbattable.</p>
+
+    <p>La garantie 30 jours satisfait ou rembourse vous met a zero risque. Vous testez chez vous, sur les 5 zones, pendant un mois entier. Si vous ne voyez aucun changement, SAY vous rembourse integralement. A ce prix-la, le pire qui puisse vous arriver est de redecouvrir la place vide sur votre etagere.</p>
+
+    <!-- ====== CTA INLINE #2 (FINAL) ====== -->
+    <div class="cta-inline" id="cta-block-2">
+      <h3 id="cta2-title">1 stick. 5 zones. 5 signes. 2 sciences. 0 aiguille.</h3>
+      <p id="cta2-sub">Pack 2 sticks a 44&#8364; (au lieu de 56&#8364;) · livraison 48h offerte · garantie 30j</p>
+      <a href="#" id="cta2-btn" data-cta="cta_2">Decouvrir le Multi Balm &#8594;</a>
+      <span class="gtee" id="cta2-gtee">&#10003; PDRN coreen + Volufiline 5% Sederma &#127467;&#127479; · &#10003; 12&nbsp;847 avis 4,9/5</span>
+    </div>
+
+  </div>
+</article>
+
+<!-- ====== FOOTER ====== -->
+<footer class="mag-foot">
+  <div class="brand">Beaute <em style="color:var(--rose-300)">Mag</em></div>
+  <p id="footer-disclaimer">Beaute Mag est un magazine independant. Cet article est sponsorise par SAY France et a ete redige en partenariat editorial.</p>
+  <p>&copy; 2026 Beaute Mag · Tous droits reserves</p>
+</footer>
+
+<!-- ====== SCRIPTS ====== -->
+<!-- Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Config -->
+<script src="config.js"></script>
+<!-- Loader : applique la config (Supabase > config.js > defauts HTML) -->
+<script>
+(function(){
+  'use strict';
+  var CFG = window.FUNNEL_CONFIG || {};
+
+  /* ---- Charger les Google Fonts dynamiquement ---- */
+  function loadFonts(headline, body){
+    var link = document.getElementById('google-fonts-link');
+    if(!link) return;
+    var families = [];
+    if(headline) families.push(headline.replace(/ /g,'+')+':ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600');
+    if(body) families.push(body.replace(/ /g,'+')+':wght@400;500;600;700');
+    if(families.length){
+      link.href = 'https://fonts.googleapis.com/css2?family='+families.join('&family=')+'&display=swap';
+    }
+  }
+
+  /* ---- Appliquer les couleurs CSS ---- */
+  function applyColors(colors){
+    if(!colors) return;
+    var root = document.documentElement;
+    for(var key in colors){
+      if(colors.hasOwnProperty(key)){
+        root.style.setProperty(key, colors[key]);
+      }
+    }
+  }
+
+  /* ---- Appliquer les fonts CSS ---- */
+  function applyFonts(fonts){
+    if(!fonts) return;
+    var root = document.documentElement;
+    if(fonts.headline) root.style.setProperty('--font-headline', "'"+fonts.headline+"',Georgia,serif");
+    if(fonts.body) root.style.setProperty('--font-body', "'"+fonts.body+"',-apple-system,sans-serif");
+  }
+
+  /* ---- Appliquer les images ---- */
+  function applyImages(images){
+    if(!images) return;
+    // Hero
+    if(images.hero){
+      var heroEl = document.getElementById('hero-img');
+      if(heroEl){
+        heroEl.innerHTML = '<img src="'+images.hero+'" alt="SAY Multi Balm application" loading="lazy">';
+      }
+    }
+    // Testimonial avatars
+    var avatarMap = {testimonial1:'ava-1', testimonial2:'ava-2', testimonial3:'ava-3'};
+    for(var imgKey in avatarMap){
+      if(images[imgKey]){
+        var avaEl = document.getElementById(avatarMap[imgKey]);
+        if(avaEl){
+          avaEl.innerHTML = '<img src="'+images[imgKey]+'" alt="Photo temoignage" loading="lazy">';
+        }
+      }
+    }
+  }
+
+  /* ---- Appliquer les textes ---- */
+  function applyTexts(texts){
+    if(!texts) return;
+    var map = {
+      sponsoredBar: 'sponsored-bar',
+      h1: 'art-title',
+      dek: 'art-dek',
+      pullQuote: 'pull-quote-text',
+      cta1Title: 'cta1-title',
+      cta1Sub: 'cta1-sub',
+      cta1Button: null,
+      cta1Guarantee: 'cta1-gtee',
+      cta2Title: 'cta2-title',
+      cta2Sub: 'cta2-sub',
+      cta2Button: null,
+      cta2Guarantee: 'cta2-gtee',
+      testimonial1Name: 'test1-name',
+      testimonial1Text: 'test1-text',
+      testimonial2Name: 'test2-name',
+      testimonial2Text: 'test2-text',
+      testimonial3Name: 'test3-name',
+      testimonial3Text: 'test3-text',
+      footerDisclaimer: 'footer-disclaimer'
+    };
+    for(var key in map){
+      if(texts[key] && map[key]){
+        var el = document.getElementById(map[key]);
+        if(el) el.innerHTML = texts[key];
+      }
+    }
+    // Boutons CTA (texte du lien)
+    if(texts.cta1Button){
+      var b1 = document.getElementById('cta1-btn');
+      if(b1) b1.textContent = texts.cta1Button;
+    }
+    if(texts.cta2Button){
+      var b2 = document.getElementById('cta2-btn');
+      if(b2) b2.textContent = texts.cta2Button;
+    }
+  }
+
+  /* ---- Appliquer le lien CTA ---- */
+  function applyCTAUrl(url){
+    if(!url) return;
+    var links = document.querySelectorAll('[data-cta]');
+    for(var i=0;i<links.length;i++){
+      links[i].href = url;
+      links[i].target = '_blank';
+      links[i].rel = 'noopener';
+    }
+  }
+
+  /* ---- Appliquer toute la config ---- */
+  function applyConfig(cfg){
+    if(!cfg) return;
+    if(cfg.colors) applyColors(cfg.colors);
+    if(cfg.fonts){
+      loadFonts(cfg.fonts.headline, cfg.fonts.body);
+      applyFonts(cfg.fonts);
+    }
+    if(cfg.images) applyImages(cfg.images);
+    if(cfg.texts) applyTexts(cfg.texts);
+    if(cfg.ctaUrl) applyCTAUrl(cfg.ctaUrl);
+  }
+
+  /* ---- Charger la config depuis Supabase (ecrase les defauts) ---- */
+  function loadFromSupabase(){
+    if(!CFG.supabaseUrl || !CFG.supabaseAnonKey) {
+      // Pas de Supabase configure : on utilise les defauts du config.js
+      applyConfig(CFG);
+      return;
+    }
+    if(typeof window.supabase === 'undefined'){
+      applyConfig(CFG);
+      return;
+    }
+    var client = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseAnonKey);
+    client.from('funnel_config')
+      .select('config')
+      .eq('funnel_id', CFG.funnelId || 'advertorial')
+      .single()
+      .then(function(res){
+        if(res.data && res.data.config && Object.keys(res.data.config).length > 0){
+          // Merge : Supabase ecrase les defauts
+          var merged = Object.assign({}, CFG, res.data.config);
+          // Deep merge pour les objets imbriques
+          if(res.data.config.colors) merged.colors = Object.assign({}, CFG.colors, res.data.config.colors);
+          if(res.data.config.fonts) merged.fonts = Object.assign({}, CFG.fonts, res.data.config.fonts);
+          if(res.data.config.images) merged.images = Object.assign({}, CFG.images, res.data.config.images);
+          if(res.data.config.texts) merged.texts = Object.assign({}, CFG.texts, res.data.config.texts);
+          window.FUNNEL_CONFIG = merged;
+          applyConfig(merged);
+        } else {
+          applyConfig(CFG);
+        }
+      })
+      .catch(function(){
+        applyConfig(CFG);
+      });
+  }
+
+  /* ---- Init ---- */
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', loadFromSupabase);
+  } else {
+    loadFromSupabase();
+  }
+})();
+</script>
+<!-- Tracker -->
+<script src="tracker.js"></script>
+</body>
+</html>
