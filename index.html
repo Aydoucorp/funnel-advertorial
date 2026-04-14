@@ -53,8 +53,9 @@ h1.art-title{font-size:clamp(1.85rem,3.6vw,2.8rem);margin:14px 0 18px;line-heigh
 .byline b{color:var(--ink-2);display:block;font-weight:600;font-family:var(--font-body)}
 
 /* HERO IMG */
-.hero-img{aspect-ratio:1/1;background:linear-gradient(135deg,var(--rose-100),var(--rose-300));margin:32px 0;border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--pink-700);font-family:var(--font-headline);font-style:italic;text-align:center;padding:30px;overflow:hidden;max-width:560px;margin-left:auto;margin-right:auto}
-.hero-img img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+.hero-img{aspect-ratio:1/1;background:linear-gradient(135deg,var(--rose-100),var(--rose-300));margin:32px auto;border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--pink-700);font-family:var(--font-headline);font-style:italic;text-align:center;padding:30px;overflow:hidden;max-width:560px;box-sizing:border-box}
+.hero-img.has-img{padding:0;background:transparent}
+.hero-img img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block}
 .cap{font-size:.78rem;color:var(--muted);font-style:italic;text-align:center;margin-top:-22px;margin-bottom:32px}
 
 /* ARTICLE BODY */
@@ -337,6 +338,7 @@ footer.mag-foot p{max-width:540px;margin:8px auto}
       var heroEl = document.getElementById('hero-img');
       if(heroEl){
         heroEl.innerHTML = '<img src="'+images.hero+'" alt="SAY Multi Balm application" loading="lazy">';
+        heroEl.classList.add('has-img');
       }
     }
     // Testimonial avatars
