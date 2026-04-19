@@ -1,7 +1,7 @@
 /* ============================================================
-   TRACKER.JS — Funnel Advertorial (SAY Multi Balm)
+   TRACKER.JS — Funnel Listicle Veloura
    Tracking : visiteurs uniques, scroll depth, clics CTA,
-   conversion. Envoi vers Supabase + Meta Pixel.
+   conversion. Envoi vers Supabase + Meta Pixel + GA.
    ============================================================ */
 
 (function () {
@@ -13,9 +13,8 @@
   var scrollMilestones = { 25: false, 50: false, 75: false, 100: false };
   var pixelReady = false;
 
-  /* ---- Visitor ID (session-based, pas de localStorage) ---- */
+  /* ---- Visitor ID (session-based, no localStorage) ---- */
   function generateVisitorId() {
-    // Genere un UUID v4 simple pour cette session
     return 'v-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 9);
   }
 
@@ -29,7 +28,6 @@
   /* ---- Meta Pixel Init ---- */
   function initMetaPixel() {
     if (!CFG.metaPixelId) return;
-    /* Meta Pixel base code */
     !function (f, b, e, v, n, t, s) {
       if (f.fbq) return; n = f.fbq = function () {
         n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
@@ -45,7 +43,7 @@
     pixelReady = true;
   }
 
-  /* ---- Google Analytics Init (optionnel) ---- */
+  /* ---- Google Analytics Init ---- */
   function initGA() {
     if (!CFG.gaId) return;
     var s = document.createElement('script');
@@ -62,7 +60,7 @@
   function sendEvent(eventType, eventData) {
     if (!supabaseClient) return;
     supabaseClient.from('funnel_events').insert({
-      funnel_id: CFG.funnelId || 'advertorial',
+      funnel_id: CFG.funnelId || 'listicle',
       visitor_id: visitorId,
       event_type: eventType,
       event_data: eventData || {},
@@ -78,10 +76,10 @@
     window.fbq('trackCustom', eventName, params || {});
   }
 
-  /* ---- Track: Page View (unique visitor) ---- */
+  /* ---- Track: Page View ---- */
   function trackPageView() {
     sendEvent('page_view', { timestamp: new Date().toISOString() });
-    sendPixelEvent('FunnelEntry', { funnel: 'advertorial' });
+    sendPixelEvent('FunnelEntry', { funnel: CFG.funnelId });
   }
 
   /* ---- Track: Scroll Depth ---- */
@@ -100,7 +98,7 @@
       if (pct >= m && !scrollMilestones[m]) {
         scrollMilestones[m] = true;
         sendEvent('scroll_' + m, { percent: m });
-        sendPixelEvent('ScrollDepth', { percent: m, funnel: 'advertorial' });
+        sendPixelEvent('ScrollDepth', { percent: m, funnel: CFG.funnelId });
       }
     }
   }
@@ -113,12 +111,12 @@
 
       var ctaName = target.getAttribute('data-cta');
       sendEvent('cta_click', { cta: ctaName });
-      sendPixelEvent('CTAClick', { cta: ctaName, funnel: 'advertorial' });
+      sendPixelEvent('CTAClick', { cta: ctaName, funnel: CFG.funnelId });
 
-      // Si c'est le CTA final, on track aussi comme conversion
-      if (ctaName === 'cta_2' || ctaName === 'cta_final') {
+      // Conversion CTAs : CTA final + CTA sticky = conversion
+      if (ctaName === 'cta_2' || ctaName === 'cta_sticky' || ctaName === 'cta_final') {
         sendEvent('conversion', { cta: ctaName });
-        sendPixelEvent('FunnelConversion', { funnel: 'advertorial' });
+        sendPixelEvent('FunnelConversion', { funnel: CFG.funnelId, cta: ctaName });
         if (pixelReady && typeof window.fbq === 'function') {
           window.fbq('track', 'Lead');
         }
@@ -126,7 +124,7 @@
     });
   }
 
-  /* ---- Throttle helper ---- */
+  /* ---- Throttle ---- */
   function throttle(fn, wait) {
     var last = 0;
     return function () {
@@ -140,25 +138,17 @@
 
   /* ---- Init ---- */
   function init() {
-    // Attendre que le config soit potentiellement mis a jour par Supabase
     setTimeout(function () {
       CFG = window.FUNNEL_CONFIG || {};
       initSupabase();
       initMetaPixel();
       initGA();
-
-      // Track page view
       trackPageView();
-
-      // Track scroll (throttled a 250ms)
       window.addEventListener('scroll', throttle(trackScroll, 250), { passive: true });
-
-      // Track CTA clicks
       trackCTAClicks();
     }, 500);
   }
 
-  /* Lancer quand le DOM est pret */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
