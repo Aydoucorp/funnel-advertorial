@@ -214,6 +214,54 @@
   .save-bar .status { font-size: 14px; color: #888; }
   .save-bar .status.success { color: #2a9d3f; }
   .save-bar .status.error { color: #d63c3c; }
+
+  /* ---- Items tab ---- */
+  .items-toolbar {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px; margin-bottom: 16px;
+    font-size: 13px; font-weight: 600; color: #555;
+  }
+  .items-bulk { display: flex; gap: 8px; }
+  .items-bulk button {
+    padding: 7px 14px; background: #fff; border: 1.5px solid #ddd;
+    border-radius: 8px; font-size: 12px; font-weight: 600;
+    color: #666; cursor: pointer; transition: all .15s;
+  }
+  .items-bulk button:hover { border-color: #C7849A; color: #C7849A; }
+
+  .item-card {
+    background: #fff; border-radius: 12px; padding: 14px 18px;
+    margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    display: flex; align-items: center; gap: 14px; transition: opacity .2s;
+  }
+  .item-card.disabled { opacity: 0.45; }
+  .item-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: #C7849A; color: #fff;
+    font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .item-info { flex: 1; min-width: 0; }
+  .item-info .item-title-preview {
+    font-size: 13px; font-weight: 600; color: #333;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .toggle-wrap { display: flex; flex-direction: column; align-items: center; gap: 3px; flex-shrink: 0; }
+  .toggle-label { font-size: 10px; font-weight: 700; color: #999; letter-spacing: .4px; }
+  .toggle { position: relative; display: inline-block; width: 42px; height: 24px; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute; cursor: pointer; inset: 0;
+    background: #e0e0e0; border-radius: 24px; transition: .2s;
+  }
+  .toggle-slider:before {
+    content: ''; position: absolute;
+    width: 18px; height: 18px; border-radius: 50%;
+    left: 3px; top: 3px; background: #fff;
+    transition: .2s; box-shadow: 0 1px 3px rgba(0,0,0,.15);
+  }
+  .toggle input:checked + .toggle-slider { background: #C7849A; }
+  .toggle input:checked + .toggle-slider:before { transform: translateX(18px); }
 </style>
 </head>
 <body>
@@ -556,7 +604,54 @@ function switchTab(id, btn) {
 /* ---- Build fields ---- */
 function buildAllFields() {
   buildColorFields(); buildImageFields(); buildTextFields();
-  buildFontFields(); buildTrackingFields();
+  buildFontFields(); buildTrackingFields(); buildItemToggles();
+}
+
+/* ---- Items tab ---- */
+function buildItemToggles() {
+  var enabled = CFG.itemsEnabled || {};
+  var texts = CFG.texts || {};
+  var html = '';
+  for (var i = 1; i <= 10; i++) {
+    var key = 'item' + i;
+    var isOn = enabled[key] !== false;
+    var title = texts[key + 'Title'] || ('Item ' + i);
+    var preview = title.replace(/<[^>]*>/g, '').substring(0, 65);
+    html += '<div class="item-card' + (isOn ? '' : ' disabled') + '" id="item-card-' + key + '">';
+    html += '<div class="item-num">' + i + '</div>';
+    html += '<div class="item-info"><div class="item-title-preview">' + preview + '</div></div>';
+    html += '<div class="toggle-wrap">';
+    html += '<label class="toggle"><input type="checkbox" data-item-toggle="' + key + '"' + (isOn ? ' checked' : '') + ' onchange="onItemToggle(this)">';
+    html += '<span class="toggle-slider"></span></label>';
+    html += '<span class="toggle-label" id="toggle-lbl-' + key + '">' + (isOn ? 'ON' : 'OFF') + '</span>';
+    html += '</div></div>';
+  }
+  document.getElementById('items-cards').innerHTML = html;
+  updateItemsCountLabel();
+}
+
+function onItemToggle(checkbox) {
+  var key = checkbox.getAttribute('data-item-toggle');
+  var isOn = checkbox.checked;
+  var card = document.getElementById('item-card-' + key);
+  var lbl = document.getElementById('toggle-lbl-' + key);
+  if (card) { if (isOn) card.classList.remove('disabled'); else card.classList.add('disabled'); }
+  if (lbl) lbl.textContent = isOn ? 'ON' : 'OFF';
+  updateItemsCountLabel();
+}
+
+function setAllItems(state) {
+  document.querySelectorAll('[data-item-toggle]').forEach(function(cb) {
+    cb.checked = state;
+    onItemToggle(cb);
+  });
+}
+
+function updateItemsCountLabel() {
+  var total = document.querySelectorAll('[data-item-toggle]').length;
+  var active = document.querySelectorAll('[data-item-toggle]:checked').length;
+  var lbl = document.getElementById('items-count-label');
+  if (lbl) lbl.textContent = active + ' item' + (active > 1 ? 's' : '') + ' actif' + (active > 1 ? 's' : '') + ' sur ' + total;
 }
 
 function buildColorFields() {
