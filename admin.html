@@ -317,6 +317,7 @@
     <button class="tab active" onclick="switchTab('tab-colors',this)">Couleurs</button>
     <button class="tab" onclick="switchTab('tab-fonts',this)">Typographie</button>
     <button class="tab" onclick="switchTab('tab-images',this)">Images</button>
+    <button class="tab" onclick="switchTab('tab-items',this)">Items actifs</button>
     <button class="tab" onclick="switchTab('tab-texts',this)">Textes</button>
     <button class="tab" onclick="switchTab('tab-tracking',this)">Tracking</button>
     <button class="tab" onclick="switchTab('tab-cta',this)">Lien CTA</button>
@@ -345,6 +346,17 @@
   </div>
 
   <div id="tab-images" class="tab-panel"><div id="images-fields"></div></div>
+  <div id="tab-items" class="tab-panel">
+    <div class="items-toolbar">
+      <span id="items-count-label">10 items actifs sur 10</span>
+      <div class="items-bulk">
+        <button onclick="setAllItems(true)">Tout activer</button>
+        <button onclick="setAllItems(false)">Tout désactiver</button>
+      </div>
+    </div>
+    <div id="items-cards"></div>
+  </div>
+
   <div id="tab-texts" class="tab-panel"><div id="texts-fields"></div></div>
 
   <div id="tab-tracking" class="tab-panel">
@@ -645,9 +657,13 @@ function collectConfig() {
     },
     colors: {}, images: {}, texts: {}
   };
-  document.querySelectorAll('[data-color-hex-for]').forEach(function(el) {
+  cfg.itemsEnabled = {};
+    document.querySelectorAll('[data-item-toggle]').forEach(function(el) {
+      cfg.itemsEnabled[el.getAttribute('data-item-toggle')] = el.checked;
+    });
+    document.querySelectorAll('[data-color-hex-for]').forEach(function(el) {
     cfg.colors[el.getAttribute('data-color-hex-for')] = el.value.trim();
-  });
+    });
   document.querySelectorAll('[data-image-key]').forEach(function(el) {
     cfg.images[el.getAttribute('data-image-key')] = el.value.trim();
   });
