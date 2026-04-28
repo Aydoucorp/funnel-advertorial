@@ -251,6 +251,9 @@
         });
       }
       if (cfg.ctaUrl) document.querySelectorAll('[data-cta]').forEach(function(el){ el.setAttribute('href',cfg.ctaUrl); });
+      // Hero image visibility
+      var heroSlot = document.getElementById('img-hero');
+      if (heroSlot) heroSlot.style.display = cfg.heroImageEnabled === false ? 'none' : '';
       applyItemVisibility(cfg);
     }
 
