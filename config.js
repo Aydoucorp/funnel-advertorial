@@ -10,6 +10,7 @@ window.FUNNEL_CONFIG = {
   gaId: '',
   ctaUrl: 'https://example.com',
   itemsEnabled: { item1:true, item2:true, item3:true, item4:true, item5:true, item6:true, item7:true, item8:true, item9:true, item10:true },
+  heroImageEnabled: true,
   colors: { '--bg':'#FFFFFF','--pink-accent':'#E3A7C4','--pink-deep':'#C7849A','--pink-light':'#F3D6DE','--pink-gradient-end':'#FBE8EE','--coral':'#EA9393','--text-dark':'#151515','--text-near-black':'#121212','--text-body':'#444444','--text-muted':'#6B6060','--text-light':'#888888','--border-light':'#EEEEEE','--navy-dark':'#1A1B2E','--pink-line':'#E94C7F','--cream':'#FAF4F0','--sponsor-text':'#6B7280','--footer-text':'#B5B5C8','--footer-copy':'#8A8AA0','--cta-bg':'#E3A7C4','--cta-text':'#FFFFFF' },
   fonts: { headline:'Inter', body:'Inter', logo:'Playfair Display', marquee:'Questrial' },
   images: { author:'', hero:'', item1:'', item2:'', item3:'', item4:'', item5:'', item6:'', item7:'', item8:'', item9:'', item10:'' },
