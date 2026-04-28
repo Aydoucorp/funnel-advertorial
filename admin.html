@@ -188,6 +188,12 @@
     flex: 1; padding: 8px 10px; border: 1px solid #e0e0e0;
     border-radius: 8px; font-size: 13px; font-family: monospace;
   }
+  .img-visibility-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #faf8f6; border-radius: 8px; padding: 10px 14px;
+    margin-bottom: 10px; border: 1px solid #eee;
+  }
+  .img-visibility-label { font-size: 13px; color: #555; font-weight: 500; }
   .image-row { display: flex; gap: 12px; align-items: flex-start; }
   .image-row .image-preview {
     width: 80px; height: 60px; border-radius: 6px;
@@ -686,12 +692,27 @@ function buildImageFields() {
     var def = IMAGE_DEFS[i];
     var val = (CFG.images && CFG.images[def.key]) || '';
     html += '<div class="field"><label>' + def.label + ' <span class="hint">(URL publique)</span></label>';
+    // Toggle de visibilité pour l'image hero
+    if (def.key === 'hero') {
+      var heroOn = CFG.heroImageEnabled !== false;
+      html += '<div class="img-visibility-row">';
+      html += '<span class="img-visibility-label">Afficher l\'image hero sur la page</span>';
+      html += '<div class="toggle-wrap" style="flex-direction:row;gap:8px;align-items:center">';
+      html += '<label class="toggle"><input type="checkbox" id="hero-image-toggle"' + (heroOn ? ' checked' : '') + ' onchange="onHeroToggle(this)"><span class="toggle-slider"></span></label>';
+      html += '<span class="toggle-label" id="hero-toggle-lbl" style="font-size:12px;font-weight:700;color:' + (heroOn ? '#C7849A' : '#999') + '">' + (heroOn ? 'ON' : 'OFF') + '</span>';
+      html += '</div></div>';
+    }
     html += '<div class="image-row">';
     html += '<div class="image-preview" style="background-image:url(\'' + val + '\')" data-preview-for="' + def.key + '"></div>';
     html += '<input type="url" data-image-key="' + def.key + '" value="' + val + '" placeholder="https://..." oninput="updateImagePreview(this)">';
     html += '</div></div>';
   }
   document.getElementById('images-fields').innerHTML = html;
+}
+
+function onHeroToggle(cb) {
+  var lbl = document.getElementById('hero-toggle-lbl');
+  if (lbl) { lbl.textContent = cb.checked ? 'ON' : 'OFF'; lbl.style.color = cb.checked ? '#C7849A' : '#999'; }
 }
 
 function updateImagePreview(input) {
@@ -753,9 +774,11 @@ function collectConfig() {
     colors: {}, images: {}, texts: {}
   };
   cfg.itemsEnabled = {};
-    document.querySelectorAll('[data-item-toggle]').forEach(function(el) {
-      cfg.itemsEnabled[el.getAttribute('data-item-toggle')] = el.checked;
-    });
+  document.querySelectorAll('[data-item-toggle]').forEach(function(el) {
+    cfg.itemsEnabled[el.getAttribute('data-item-toggle')] = el.checked;
+  });
+  var heroToggle = document.getElementById('hero-image-toggle');
+  cfg.heroImageEnabled = heroToggle ? heroToggle.checked : true;
     document.querySelectorAll('[data-color-hex-for]').forEach(function(el) {
     cfg.colors[el.getAttribute('data-color-hex-for')] = el.value.trim();
     });
